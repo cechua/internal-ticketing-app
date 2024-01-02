@@ -14,6 +14,10 @@
     "next": "14.0.4"
   },
   "devDependencies": {
+    "@fortawesome/free-solid-svg-icons": "^6.5.1",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "mongodb": "^6.3.0",
+    "mongoose": "^8.0.3",
     "typescript": "^5",
     "@types/node": "^20",
     "@types/react": "^18",
