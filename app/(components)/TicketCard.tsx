@@ -9,16 +9,17 @@ const TicketCard = () => {
   return (
     <div className="flex flex-col bg-card hover:bg-card-hover rounded-md shadow-lg p-3 m-2">
       <Link href={`/TicketPage/${ticket._id}`} style={{ display: 'contents' }}>
+        <h4 className="text-center">{ticket.category}</h4>
         <div className="flex justify-between">
           <h4>{ticket.title}</h4>
-          <h4>{ticket.category}</h4>
+          <h4>id</h4>
         </div>
-        <hr className="h-px border-0 bg-line mb-2" />
+        <hr className="h-px border-0 bg-line mt-2" />
         <p className="whitespace-pre-wrap py-4">{ticket.description}</p>
-        <hr className="h-px border-0 bg-line mb-2" />
+        <hr className="h-px border-0 bg-line" />
         <div className="flex justify-between">
           <div>
-            <span>Approved by: image + name</span>
+            <span>Requestor: username</span>
           </div>
           <div>
             <span>Status by UserName</span>
