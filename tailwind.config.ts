@@ -15,10 +15,12 @@ const config: Config = {
       },
       colors: {
         navigation: '#1d3a57',
+        button: '#1d3a57',
         card: '#495b81',
         'card-hover': '#5265a3',
         white: '#f1f3f5',
         line: '#e3e3e3',
+        form: '#95c7dd',
         'dashboard-new': '#b4f1a4',
         'dashboard-due': '#fd7676',
         'dashboard-pending': '#92c6f9',

@@ -17,17 +17,17 @@ const Navigation = () => {
           <FontAwesomeIcon icon={faHome} className="icon" />
           <span>Home</span>
         </Link>
-        <Link href="/TicketPage/new" className="flex items-center gap-2">
+        <Link href="/Ticket/new" className="flex items-center gap-2">
           <FontAwesomeIcon icon={faTicket} className="icon" />
           <span>Create New Ticket</span>
         </Link>
-        <Link
+        {/* <Link
           href="/TicketDashboard/approval"
           className="flex items-center gap-2"
         >
           <FontAwesomeIcon icon={faCheckSquare} className="icon" />
           <span>Tickets for Approval</span>
-        </Link>
+        </Link> */}
         <div className="flex items-center gap-2">
           {/* change this to image */}
           <FontAwesomeIcon icon={faUser} className="icon" />

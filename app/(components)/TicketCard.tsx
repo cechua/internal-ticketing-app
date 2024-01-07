@@ -8,7 +8,7 @@ const TicketCard = () => {
   };
   return (
     <div className="flex flex-col bg-card hover:bg-card-hover rounded-md shadow-lg p-3 m-2">
-      <Link href={`/TicketPage/${ticket._id}`} style={{ display: 'contents' }}>
+      <Link href={`/Ticket/${ticket._id}`} style={{ display: 'contents' }}>
         <h4 className="text-center">{ticket.category}</h4>
         <div className="flex justify-between">
           <h4>{ticket.title}</h4>
