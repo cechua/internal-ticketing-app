@@ -6,6 +6,7 @@ import {
   faList,
   faTicket,
   faUser,
+  faUserPlus,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const Navigation = () => {
@@ -20,6 +21,10 @@ const Navigation = () => {
         <Link href="/Ticket/new" className="flex items-center gap-2">
           <FontAwesomeIcon icon={faTicket} className="icon" />
           <span>Create New Ticket</span>
+        </Link>
+        <Link href="/User/AddUser" className="flex items-center gap-2">
+          <FontAwesomeIcon icon={faUserPlus} className="icon" />
+          <span>Create New User</span>
         </Link>
         {/* <Link
           href="/TicketDashboard/approval"
