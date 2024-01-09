@@ -3,13 +3,13 @@ import React, { useState } from 'react';
 
 interface UserData {
   email: string;
-  userName: string;
+  username: string;
   role: string;
 }
 const AddUserForm = () => {
   const initialData: UserData = {
     email: '',
-    userName: '',
+    username: '',
     role: 'User',
   };
   const [formData, setFormData] = useState(initialData);
@@ -23,8 +23,22 @@ const AddUserForm = () => {
     }));
   };
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
+    const fullFormData = {
+      ...formData,
+      password: null,
+      createdBy: 'adminusertemp',
+      isSetupStep: true,
+      active: true,
+    };
+    const res = await fetch('/api/User', {
+      method: 'POST',
+      body: JSON.stringify({ data: fullFormData }),
+    });
+    if (!res.ok) {
+      throw new Error('Failed to create Ticket.');
+    }
   };
   return (
     <div className="flex justify-center">
@@ -42,11 +56,11 @@ const AddUserForm = () => {
           <label>Username</label>
           <input
             type="text"
-            id="userName"
-            name="userName"
+            id="username"
+            name="username"
             onChange={handleChange}
             required
-            value={formData.userName}
+            value={formData.username}
           />
 
           <label>Role</label>
