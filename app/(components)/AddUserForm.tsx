@@ -1,5 +1,7 @@
 'use client';
 import React, { useState } from 'react';
+import { UserType } from '../(models)/User';
+import PopupAlert from './PopupAlert';
 
 interface UserData {
   email: string;
@@ -13,7 +15,8 @@ const AddUserForm = () => {
     role: 'User',
   };
   const [formData, setFormData] = useState(initialData);
-
+  const [showModal, setShowModal] = useState(true);
+  const [isSaving, setIsSaving] = useState(false);
   const handleChange = (e: any) => {
     const value = e.target.value;
     const name = e.target.name;
@@ -25,7 +28,8 @@ const AddUserForm = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    const fullFormData = {
+    setIsSaving(true);
+    const fullFormData: UserType = {
       ...formData,
       password: null,
       createdBy: 'adminusertemp',
@@ -38,6 +42,8 @@ const AddUserForm = () => {
     });
     if (!res.ok) {
       throw new Error('Failed to create Ticket.');
+    } else {
+      setFormData(initialData);
     }
   };
   return (
@@ -74,6 +80,7 @@ const AddUserForm = () => {
           </button>
         </form>
       </div>
+      <PopupAlert visible={showModal} setVisibility={setShowModal} />
     </div>
   );
 };

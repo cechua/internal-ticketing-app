@@ -1,5 +1,6 @@
-import User from '@/app/(models)/User';
-import { NextResponse } from 'next/server';
+import User, { UserType } from '@/app/(models)/User';
+import { NextApiRequest } from 'next';
+import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET() {
   try {
@@ -10,10 +11,10 @@ export async function GET() {
   }
 }
 
-export async function POST(req: any) {
+export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const userData = body.data;
+    const userData: UserType = body.data;
     console.log(userData);
     await User.create(userData);
     return NextResponse.json({ message: 'User Created' }, { status: 200 });

@@ -26,6 +26,9 @@ const config: Config = {
         'dashboard-pending': '#92c6f9',
         'dashboard-assigned': '#fbefa2',
       },
+      backdropBlur: {
+        xs: '2px',
+      },
     },
   },
   plugins: [],
