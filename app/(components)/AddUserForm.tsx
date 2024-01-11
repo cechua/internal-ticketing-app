@@ -31,7 +31,7 @@ const AddUserForm = () => {
     setIsSaving(true);
     const fullFormData: UserType = {
       ...formData,
-      password: null,
+      password: '',
       createdBy: 'adminusertemp',
       isSetupStep: true,
       active: true,

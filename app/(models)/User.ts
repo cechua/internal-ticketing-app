@@ -3,11 +3,11 @@ mongoose.connect(process.env.MONGODB_URI!);
 mongoose.Promise = global.Promise;
 
 export type UserType = {
-  email: String;
-  username: String;
-  password: String | null;
-  role: String;
-  createdBy: String;
+  email: string;
+  username: string;
+  password: string;
+  role: string;
+  createdBy: string;
   isSetupStep: Boolean;
   active: Boolean;
 };

@@ -33,7 +33,7 @@ const LoginForm = () => {
   useEffect(() => {
     getUsersList();
   }, []);
-  console.log(users);
+
   const handleChange = (e: any) => {
     const value = e.target.value;
     const name = e.target.name;
