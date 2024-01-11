@@ -1,6 +1,9 @@
 'use client';
 import React, { useState } from 'react';
 
+import bcrypt from 'bcryptjs';
+import { hashPass, isSamePass } from '../(utils)/hashPass';
+import { UserType } from '../(models)/User';
 interface NewUserData {
   email: string;
   username: string;
@@ -25,9 +28,11 @@ const NewUserForm = () => {
     }));
   };
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
+    const hashedPassword = await hashPass(formData.password);
   };
+
   return (
     <div className="flex justify-center">
       <div className=" border-2 rounded-lg p-6 bg-form w-1/2">
