@@ -2,4 +2,4 @@
 export { default } from 'next-auth/middleware';
 
 //Add paths below for specific pages that needs to be protected
-export const config = { matcher: ['/'] };
+export const config = { matcher: ['/', '/User/AddUser', '/Ticket/:id*'] };
