@@ -29,6 +29,7 @@ const AddUserForm = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     setIsSaving(true);
+    /*Add email and username duplicate checking */
     const fullFormData: UserType = {
       ...formData,
       password: '',

@@ -1,8 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-
-import bcrypt from 'bcryptjs';
-import { hashPass, isSamePass } from '../(utils)/hashPass';
+import { hashPass } from '../(utils)/hashPass';
 import { UserType } from '../(models)/User';
 interface UserData extends UserType {
   id: string;
@@ -61,7 +59,10 @@ const NewUserForm = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     //add password policy
-    if (formData.password !== formData.confirmPassword) {
+    if (
+      formData.password !== formData.confirmPassword &&
+      formData.password !== ''
+    ) {
       alert('Password is not same'); //replace this to message box
     } else {
       const hashedPassword = await hashPass(formData.password);
@@ -75,14 +76,16 @@ const NewUserForm = () => {
       });
       if (!res.ok) {
         throw new Error('Failed to update your Ticket.');
+      } else {
+        setFormData(initialData);
       }
     }
   };
-
+  //ADD enter functionality on below
   return (
     <div className="flex justify-center">
       <div className=" border-2 rounded-lg p-6 bg-form w-1/2">
-        <form method="post" onSubmit={handleSubmit} className="flex flex-col">
+        <form method="post" className="flex flex-col">
           <h2 className="text-center text-black">Register your Account</h2>
           <label>Email</label>
           <input
@@ -128,7 +131,11 @@ const NewUserForm = () => {
                 required
                 value={formData.confirmPassword}
               />
-              <button type="submit" className="btn max-w-xs">
+              <button
+                type="button"
+                className="btn max-w-xs"
+                onClick={handleSubmit}
+              >
                 Register
               </button>
             </>

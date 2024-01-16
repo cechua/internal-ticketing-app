@@ -1,22 +1,10 @@
 'use client';
-import React, { useEffect, useState } from 'react';
-
-interface LoginData {
+import { signIn } from 'next-auth/react';
+import React, { useState } from 'react';
+export interface LoginData {
   username: string;
   password: string;
 }
-
-const getUsers = async () => {
-  try {
-    const res = await fetch('http://localhost:3000/api/User/Login', {
-      cache: 'no-cache',
-    });
-
-    return res.json();
-  } catch (error) {
-    console.log('Failed to get tickets', error);
-  }
-};
 
 const LoginForm = () => {
   const initialData: LoginData = {
@@ -24,15 +12,6 @@ const LoginForm = () => {
     password: '',
   };
   const [formData, setFormData] = useState(initialData);
-  const [users, setUsers] = useState([]);
-  const getUsersList = async () => {
-    const { users } = await getUsers();
-    setUsers(users);
-  };
-
-  useEffect(() => {
-    getUsersList();
-  }, []);
 
   const handleChange = (e: any) => {
     const value = e.target.value;
@@ -43,12 +22,26 @@ const LoginForm = () => {
     }));
   };
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
+
+    // const res = await fetch('/api/User/Login', {
+    //   method: 'POST',
+    //   body: JSON.stringify({ data: formData }),
+    // });
+    // if (!res.ok) {
+    //   throw new Error('User/Password incorrect');
+    // } else {
+    //   setFormData(initialData);
+    // }
+    await signIn('credentials', {
+      username: formData.username,
+      password: formData.password,
+    });
   };
   return (
     <div className="flex justify-center">
-      <div className=" border-2 rounded-lg p-6 bg-form w-1/2">
+      <div className="border-2 rounded-lg p-6 bg-form w-1/2">
         <form method="post" onSubmit={handleSubmit} className="flex flex-col">
           <h2 className="text-center text-black">Login</h2>
 

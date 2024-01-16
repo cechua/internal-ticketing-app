@@ -9,7 +9,11 @@ import {
   faUserPlus,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-const Navigation = () => {
+import { getServerSession } from 'next-auth';
+import { authOptions } from '../(server)/auth';
+const Navigation = async () => {
+  const authSession = await getServerSession(authOptions);
+  console.log({ authSession });
   return (
     <nav className="flex justify-between bg-navigation p-4">
       <h2>Company XYZ Ticket System</h2>
@@ -37,7 +41,9 @@ const Navigation = () => {
           {/* change this to image */}
           <FontAwesomeIcon icon={faUser} className="icon" />
           {/* change this to currently logged in user, Get from session state or local/sessions storage? */}
-          <p className="text-default-text">Test User</p>
+          <p className="text-default-text">
+            {authSession?.user && authSession?.user.name}
+          </p>
         </div>
       </div>
     </nav>
