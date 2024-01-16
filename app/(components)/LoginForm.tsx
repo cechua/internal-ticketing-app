@@ -25,18 +25,10 @@ const LoginForm = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
-    // const res = await fetch('/api/User/Login', {
-    //   method: 'POST',
-    //   body: JSON.stringify({ data: formData }),
-    // });
-    // if (!res.ok) {
-    //   throw new Error('User/Password incorrect');
-    // } else {
-    //   setFormData(initialData);
-    // }
     await signIn('credentials', {
       username: formData.username,
       password: formData.password,
+      callbackUrl: '/', //redirect path
     });
   };
   return (
