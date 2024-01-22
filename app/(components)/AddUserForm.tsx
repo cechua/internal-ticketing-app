@@ -1,14 +1,17 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { UserType } from '../(models)/User';
 import PopupAlert from './PopupAlert';
+import { useSession } from 'next-auth/react';
 
 interface UserData {
   email: string;
   username: string;
   role: string;
 }
+
 const AddUserForm = () => {
+  const { data: session } = useSession();
   const initialData: UserData = {
     email: '',
     username: '',
@@ -32,8 +35,10 @@ const AddUserForm = () => {
     /*Add email and username duplicate checking */
     const fullFormData: UserType = {
       ...formData,
+      firstName: '',
+      lastName: '',
       password: '',
-      createdBy: 'adminusertemp',
+      createdBy: session?.user?.id,
       isSetupStep: true,
       active: true,
     };

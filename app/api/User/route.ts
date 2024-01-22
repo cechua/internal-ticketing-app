@@ -5,7 +5,7 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function GET(req: NextRequest) {
   try {
     const email = req.nextUrl.searchParams.get('email');
-    const users = await User.findOne({ email: email, isSetupStep: false });
+    const users = await User.findOne({ email: email, isSetupStep: true });
     return NextResponse.json({ users }, { status: 200 });
   } catch (error) {
     return NextResponse.json({ message: 'Error', error }, { status: 500 });

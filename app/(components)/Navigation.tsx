@@ -48,11 +48,18 @@ const Navigation = ({ user }: any) => {
               </p>
             </>
           ) : (
-            <p className="text-default-text">
-              <Link href="/User/Login">
-                <span>Login</span>
-              </Link>
-            </p>
+            <>
+              <p className="text-default-text">
+                <Link href="/User/NewUser">
+                  <span>Register your Account</span>
+                </Link>
+              </p>
+              <p className="text-default-text">
+                <Link href="/User/Login">
+                  <span>Login</span>
+                </Link>
+              </p>
+            </>
           )}
         </div>
       </div>

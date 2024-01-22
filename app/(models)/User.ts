@@ -5,6 +5,8 @@ mongoose.Promise = global.Promise;
 export type UserType = {
   email: string;
   username: string;
+  firstName: string;
+  lastName: string;
   password: string;
   role: string;
   createdBy: string;
@@ -16,6 +18,8 @@ const userSchema = new Schema(
   {
     email: String,
     username: String,
+    firstName: String,
+    lastName: String,
     password: String,
     role: String,
     createdBy: String,

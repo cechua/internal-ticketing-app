@@ -11,6 +11,8 @@ const NewUserForm = () => {
     id: '',
     email: '',
     username: '',
+    firstName: '',
+    lastName: '',
     password: '',
     confirmPassword: '',
     role: '',
@@ -112,6 +114,20 @@ const NewUserForm = () => {
                 value={formData.username}
                 onChange={handleChange}
                 disabled={passwordSetup}
+              ></input>
+              <label>First Name</label>
+              <input
+                type="text"
+                name="firstName"
+                value={formData.firstName}
+                onChange={handleChange}
+              ></input>
+              <label>Last Name</label>
+              <input
+                type="text"
+                name="lastName"
+                value={formData.lastName}
+                onChange={handleChange}
               ></input>
               <label>Password</label>
               <input

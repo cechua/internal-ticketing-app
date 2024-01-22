@@ -6,8 +6,7 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const userData: LoginData = body.data;
-
+    const userData: LoginData = body;
     const user = await User.findOne({
       $or: [{ username: userData.username }, { email: userData.username }],
     });
@@ -19,7 +18,10 @@ export async function POST(req: NextRequest) {
       const responseData = {
         id: user._id,
         username: user.username,
+        firstName: user.firstName,
+        lastName: user.lastName,
         email: user.email,
+        role: user.role,
       };
       if (isCorrectPassword) {
         return NextResponse.json(
