@@ -1,27 +1,22 @@
 'use client';
+import { useSession } from 'next-auth/react';
 import React, { useState } from 'react';
-
-interface TicketData {
-  category: string;
-  title: string;
-  description: string;
-  priorityLevel: number;
-  status: string;
-  resolver: string;
-}
+import { TicketType } from '../(models)/Ticket';
 
 interface TicketFormProps {
   updateMode: boolean;
 }
 const TicketForm = (props: TicketFormProps) => {
+  const { data: session } = useSession();
   const IS_UPDATE_MODE = props.updateMode;
-  const initialData: TicketData = {
+  const initialData: TicketType = {
     category: 'Hardware Problem',
     title: '',
     description: '',
     priorityLevel: 1,
     status: 'Not Started',
     resolver: '',
+    createdBy: '',
   };
   const [formData, setFormData] = useState(initialData);
 
@@ -37,7 +32,16 @@ const TicketForm = (props: TicketFormProps) => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     if (!IS_UPDATE_MODE) {
-      console.log(formData);
+      const res = await fetch('/api/Ticket/New', {
+        method: 'POST',
+        body: JSON.stringify({
+          data: { ...formData, createdBy: session?.user?.id },
+        }),
+      });
+      if (!res.ok) {
+        throw new Error('Failed to create Ticket.');
+      }
+      setFormData(initialData);
     } else {
       console.log('is update mode');
     }
