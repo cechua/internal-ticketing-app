@@ -117,8 +117,8 @@ const TicketForm = (props: TicketFormProps) => {
             {!IS_UPDATE_MODE ? 'Create your Ticket' : 'Update Ticket'}
           </button>
         </form>
-        {/* Comment section for update mode */}
-        <div className="flex flex-col mt-4">
+        {/* Comment section for update mode - future feature i */}
+        {/* <div className="flex flex-col mt-4">
           <textarea id="comment" name="comment" rows={5} />
           <button type="button" className="btn max-w-xs">
             Add Comment
@@ -133,7 +133,7 @@ const TicketForm = (props: TicketFormProps) => {
 
             <p className="text-black">This is being resolved</p>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

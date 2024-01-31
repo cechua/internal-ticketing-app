@@ -3,6 +3,7 @@ mongoose.connect(process.env.MONGODB_URI!);
 mongoose.Promise = global.Promise;
 
 export type TicketType = {
+  _id?: string;
   category: string;
   title: string;
   description: string;
@@ -10,6 +11,7 @@ export type TicketType = {
   status: string;
   resolver: string;
   createdBy: string;
+  updatedAt?: string;
 };
 
 const ticketSchema = new Schema(
