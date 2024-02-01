@@ -1,14 +1,16 @@
 'use client';
 import { useSession } from 'next-auth/react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { TicketType } from '../(models)/Ticket';
 
 interface TicketFormProps {
   updateMode: boolean;
+  ticketData?: TicketType;
 }
 const TicketForm = (props: TicketFormProps) => {
   const { data: session } = useSession();
   const IS_UPDATE_MODE = props.updateMode;
+
   const initialData: TicketType = {
     category: 'Hardware Problem',
     title: '',
@@ -20,6 +22,10 @@ const TicketForm = (props: TicketFormProps) => {
   };
   const [formData, setFormData] = useState(initialData);
 
+  useEffect(() => {
+    if (IS_UPDATE_MODE && props.ticketData) setFormData(props.ticketData);
+  }, [IS_UPDATE_MODE, props.ticketData]);
+
   const handleChange = (e: any) => {
     const value = e.target.value;
     const name = e.target.name;
@@ -28,7 +34,6 @@ const TicketForm = (props: TicketFormProps) => {
       [name]: value, //update only the value of the name to the new value
     }));
   };
-
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     if (!IS_UPDATE_MODE) {
