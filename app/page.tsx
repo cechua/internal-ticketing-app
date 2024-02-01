@@ -28,7 +28,7 @@ export default function Home() {
   return (
     <main>
       <Dashboard />
-      <div className="flex gap-2 mt-4">
+      <div className="flex gap-2 mt-4 justify-between mx-4">
         <div className="border-4">
           <h4 className="text-black text-center">New Tickets</h4>
           <div className="lg:grid grid-cols-1 xl:grid-cols-3">
@@ -53,10 +53,25 @@ export default function Home() {
         </div>
         <div className="border-4">
           <h4 className="text-black text-center">Tickets Assigned to you</h4>
-          {/* <div className="lg:grid grid-cols-1 xl:grid-cols-3">
-            <TicketCard />
-            <TicketCard />
-          </div> */}
+          <div className="lg:grid grid-cols-1 xl:grid-cols-3">
+            {tickets &&
+              tickets.map((ticket, i) => {
+                return (
+                  <TicketCard
+                    key={ticket._id}
+                    _id={ticket._id}
+                    category={ticket.category}
+                    title={ticket.title}
+                    description={ticket.description}
+                    priorityLevel={ticket.priorityLevel}
+                    status={ticket.status}
+                    resolver={ticket.resolver}
+                    createdBy={ticket.createdBy}
+                    updatedAt={ticket.updatedAt}
+                  />
+                );
+              })}
+          </div>
         </div>
       </div>
     </main>

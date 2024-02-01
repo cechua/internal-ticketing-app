@@ -16,7 +16,7 @@ const TicketForm = (props: TicketFormProps) => {
     priorityLevel: 1,
     status: 'Not Started',
     resolver: '',
-    createdBy: '',
+    createdBy: undefined,
   };
   const [formData, setFormData] = useState(initialData);
 

@@ -3,7 +3,7 @@ import DashboardCard from './DashboardCard';
 
 const Dashboard = () => {
   return (
-    <div className="border-4 py-4 px-3 justify-between md:grid grid-cols-2 xl:grid-cols-4 gap-16">
+    <div className="border-4 py-4 px-3 justify-between md:grid grid-cols-2 xl:grid-cols-4 gap-28">
       <DashboardCard
         cardDescription="New Tickets Created Today"
         count={3}
