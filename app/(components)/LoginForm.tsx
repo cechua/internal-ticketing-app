@@ -1,6 +1,7 @@
 'use client';
 import { signIn } from 'next-auth/react';
-import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import React, { useEffect, useState } from 'react';
 export interface LoginData {
   username: string;
   password: string;
@@ -11,11 +12,14 @@ const LoginForm = () => {
     username: '',
     password: '',
   };
+  const router = useRouter();
   const [formData, setFormData] = useState(initialData);
+  const [hasError, setHasError] = useState(false);
 
   const handleChange = (e: any) => {
     const value = e.target.value;
     const name = e.target.name;
+    setHasError(false);
     setFormData((prevState) => ({
       ...prevState,
       [name]: value, //update only the value of the name to the new value
@@ -25,11 +29,18 @@ const LoginForm = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
-    await signIn('credentials', {
+    const res = await signIn('credentials', {
       username: formData.username,
       password: formData.password,
-      callbackUrl: '/', //redirect path
+      //callbackUrl: '/', //redirect path
+      redirect: false,
     });
+
+    if (res?.status == 200) {
+      router.push('/');
+    } else if (res?.error) {
+      setHasError(true);
+    }
   };
   return (
     <div className="flex justify-center">
@@ -58,6 +69,7 @@ const LoginForm = () => {
           <button type="submit" className="btn max-w-xs">
             Login
           </button>
+          {hasError && <label>Incorrect Credentials</label>}
         </form>
       </div>
     </div>
