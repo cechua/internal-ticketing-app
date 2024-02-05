@@ -37,7 +37,6 @@ const TicketForm = (props: TicketFormProps) => {
   };
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    console.log({ formData });
     if (!IS_UPDATE_MODE) {
       const res = await fetch('/api/Ticket/New', {
         method: 'POST',

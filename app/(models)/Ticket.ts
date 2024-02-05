@@ -27,7 +27,7 @@ export type TicketType = {
   resolver: string;
   createdBy?: ID | UserType;
   updatedAt?: string;
-  updatedBy?: string;
+  updatedBy?: ID | UserType;
 };
 
 const ticketSchema = new Schema(

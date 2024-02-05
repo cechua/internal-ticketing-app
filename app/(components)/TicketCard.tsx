@@ -5,6 +5,7 @@ import { UserType } from '../(models)/User';
 import moment from 'moment';
 const TicketCard = (ticket: TicketType) => {
   const requestor = ticket.createdBy as UserType;
+  const updatedBy = ticket.updatedBy as UserType;
   return (
     <div className="flex flex-col bg-card hover:bg-card-hover rounded-md shadow-lg p-3 m-2 w-96 h-60">
       <Link href={`/Ticket/${ticket._id}`} style={{ display: 'contents' }}>
@@ -23,12 +24,12 @@ const TicketCard = (ticket: TicketType) => {
           <div className="flex flex-col justify-between">
             <div className="flex justify-between">
               <div>
-                <span>Requestor: {requestor.firstName}</span>
+                <span>Requestor: {requestor.username}</span>
               </div>
               <div>
                 {ticket.status.toLocaleLowerCase() !== 'not started' ? (
                   <span>
-                    {ticket.status} by {ticket.resolver}
+                    {ticket.status} by {updatedBy?.username}
                   </span>
                 ) : (
                   <span>Status: Open</span>

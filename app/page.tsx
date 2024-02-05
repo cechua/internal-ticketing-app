@@ -46,6 +46,7 @@ export default function Home() {
                     resolver={ticket.resolver}
                     createdBy={ticket.createdBy}
                     updatedAt={ticket.updatedAt}
+                    updatedBy={ticket.updatedBy}
                   />
                 );
               })}
@@ -68,6 +69,7 @@ export default function Home() {
                     resolver={ticket.resolver}
                     createdBy={ticket.createdBy}
                     updatedAt={ticket.updatedAt}
+                    updatedBy={ticket.updatedBy}
                   />
                 );
               })}
