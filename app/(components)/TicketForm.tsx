@@ -2,12 +2,16 @@
 import { useSession } from 'next-auth/react';
 import React, { useEffect, useState } from 'react';
 import { TicketType } from '../(models)/Ticket';
+import Button from './Button';
+import PopupAlert from './PopupAlert';
+import { useRouter } from 'next/navigation';
 
 interface TicketFormProps {
   updateMode: boolean;
   ticketData?: TicketType;
 }
 const TicketForm = (props: TicketFormProps) => {
+  const router = useRouter();
   const { data: session } = useSession();
   const IS_UPDATE_MODE = props.updateMode;
 
@@ -22,7 +26,8 @@ const TicketForm = (props: TicketFormProps) => {
     updatedBy: undefined,
   };
   const [formData, setFormData] = useState(initialData);
-
+  const [isLoading, setIsLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   useEffect(() => {
     if (IS_UPDATE_MODE && props.ticketData) setFormData(props.ticketData);
   }, [IS_UPDATE_MODE, props.ticketData]);
@@ -35,8 +40,8 @@ const TicketForm = (props: TicketFormProps) => {
       [name]: value, //update only the value of the name to the new value
     }));
   };
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
+    setIsLoading(true);
     if (!IS_UPDATE_MODE) {
       const res = await fetch('/api/Ticket/New', {
         method: 'POST',
@@ -49,9 +54,11 @@ const TicketForm = (props: TicketFormProps) => {
         }),
       });
       if (!res.ok) {
+        setIsLoading(false);
         throw new Error('Failed to create Ticket.');
       }
       setFormData(initialData);
+      setIsLoading(false);
     } else {
       const res = await fetch(`/api/Ticket/${props.ticketData?._id}`, {
         method: 'PUT',
@@ -60,14 +67,25 @@ const TicketForm = (props: TicketFormProps) => {
         }),
       });
       if (!res.ok) {
+        setIsLoading(false);
         throw new Error('Failed to create Ticket.');
       }
+      setIsLoading(false);
     }
+  };
+  const backToHomepage = () => {
+    router.push('/');
   };
   return (
     <div className="flex justify-center">
       <div className=" border-2 rounded-lg p-6 bg-form w-1/2">
-        <form method="post" onSubmit={handleSubmit} className="flex flex-col">
+        <form
+          method="post"
+          className="flex flex-col"
+          onSubmit={(e) => {
+            e.preventDefault();
+          }}
+        >
           <h2 className="text-center text-black">
             {!IS_UPDATE_MODE ? 'Create Your Ticket' : 'Update Ticket'}
           </h2>
@@ -131,9 +149,11 @@ const TicketForm = (props: TicketFormProps) => {
             <option value="In Progress">In Progress</option>
             <option value="Done">Done</option>
           </select>
-          <button type="submit" className="btn max-w-xs">
-            {!IS_UPDATE_MODE ? 'Create your Ticket' : 'Update Ticket'}
-          </button>
+          <Button
+            text={!IS_UPDATE_MODE ? 'Create your Ticket' : 'Update Ticket'}
+            onClickHandler={handleSubmit}
+            isLoading={isLoading}
+          />
         </form>
         {/* Comment section for update mode - future feature i */}
         {/* <div className="flex flex-col mt-4">
@@ -152,6 +172,19 @@ const TicketForm = (props: TicketFormProps) => {
             <p className="text-black">This is being resolved</p>
           </div>
         </div> */}
+        <PopupAlert
+          visible={showModal}
+          setVisibility={setShowModal}
+          mainText={
+            !IS_UPDATE_MODE ? 'Ticket Successfully Created!' : 'Ticket Updated!'
+          }
+          mainCTAText={
+            !IS_UPDATE_MODE ? 'Create another ticket' : 'Back to homepage'
+          }
+          mainCTAHandler={
+            !IS_UPDATE_MODE ? () => setShowModal(false) : backToHomepage
+          }
+        />
       </div>
     </div>
   );
