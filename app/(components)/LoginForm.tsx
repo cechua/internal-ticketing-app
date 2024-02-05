@@ -1,6 +1,5 @@
 'use client';
 import { signIn } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 export interface LoginData {
   username: string;
@@ -12,7 +11,6 @@ const LoginForm = () => {
     username: '',
     password: '',
   };
-  const router = useRouter();
   const [formData, setFormData] = useState(initialData);
   const [hasError, setHasError] = useState(false);
 
@@ -37,7 +35,7 @@ const LoginForm = () => {
     });
 
     if (res?.status == 200) {
-      router.push('/');
+      window.location.href = '/'; //need this so navigation will refresh
     } else if (res?.error) {
       setHasError(true);
     }
