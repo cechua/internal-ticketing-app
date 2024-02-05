@@ -9,7 +9,6 @@ export async function POST(req: NextRequest) {
     if (session) {
       const body = await req.json();
       const ticketData: TicketType = body.data;
-      console.log(ticketData);
       await Ticket.create(ticketData);
       return NextResponse.json({ message: 'Ticket  Created' }, { status: 200 });
     } else {

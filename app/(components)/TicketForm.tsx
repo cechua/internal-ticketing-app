@@ -19,6 +19,7 @@ const TicketForm = (props: TicketFormProps) => {
     status: 'Not Started',
     resolver: '',
     createdBy: undefined,
+    updatedBy: undefined,
   };
   const [formData, setFormData] = useState(initialData);
 
@@ -36,11 +37,16 @@ const TicketForm = (props: TicketFormProps) => {
   };
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    console.log({ formData });
     if (!IS_UPDATE_MODE) {
       const res = await fetch('/api/Ticket/New', {
         method: 'POST',
         body: JSON.stringify({
-          data: { ...formData, createdBy: session?.user?.id },
+          data: {
+            ...formData,
+            createdBy: session?.user?.id,
+            updatedBy: session?.user?.id,
+          },
         }),
       });
       if (!res.ok) {
@@ -48,7 +54,15 @@ const TicketForm = (props: TicketFormProps) => {
       }
       setFormData(initialData);
     } else {
-      console.log('is update mode');
+      const res = await fetch(`/api/Ticket/${props.ticketData?._id}`, {
+        method: 'PUT',
+        body: JSON.stringify({
+          data: { ...formData, updatedBy: session?.user?.id },
+        }),
+      });
+      if (!res.ok) {
+        throw new Error('Failed to create Ticket.');
+      }
     }
   };
   return (

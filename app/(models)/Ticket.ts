@@ -14,6 +14,7 @@ export type NewTicketType = {
   resolver: string;
   createdBy?: string;
   updatedAt?: string;
+  updatedBy?: string;
 };
 
 export type TicketType = {
@@ -26,6 +27,7 @@ export type TicketType = {
   resolver: string;
   createdBy?: ID | UserType;
   updatedAt?: string;
+  updatedBy?: string;
 };
 
 const ticketSchema = new Schema(
@@ -37,6 +39,7 @@ const ticketSchema = new Schema(
     status: String,
     resolver: String,
     createdBy: { type: Schema.Types.ObjectId, ref: User },
+    updatedBy: { type: Schema.Types.ObjectId, ref: User },
   },
   {
     timestamps: true,
