@@ -11,8 +11,14 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { signOut } from 'next-auth/react';
+import { User } from 'next-auth';
+import { UserRoles } from '../(enums)/UserRoles';
 
-const Navigation = ({ user }: any) => {
+interface NavigationProps {
+  user: User;
+}
+
+const Navigation = ({ user }: NavigationProps) => {
   return (
     <nav className="flex justify-between bg-navigation p-4">
       <h2>Company XYZ Ticket System</h2>
@@ -27,10 +33,12 @@ const Navigation = ({ user }: any) => {
               <FontAwesomeIcon icon={faTicket} className="icon" />
               <span>Create New Ticket</span>
             </Link>
-            <Link href="/User/AddUser" className="flex items-center gap-2">
-              <FontAwesomeIcon icon={faUserPlus} className="icon" />
-              <span>Create New User</span>
-            </Link>
+            {user.role === UserRoles.ADMIN && (
+              <Link href="/User/AddUser" className="flex items-center gap-2">
+                <FontAwesomeIcon icon={faUserPlus} className="icon" />
+                <span>Create New User</span>
+              </Link>
+            )}
           </>
         )}
         <div className="flex items-center gap-2">
@@ -49,7 +57,7 @@ const Navigation = ({ user }: any) => {
             </>
           ) : (
             <>
-              <p className="text-default-text">
+              <p className="text-default-text border-r-2 px-3">
                 <Link href="/User/NewUser">
                   <span>Register your Account</span>
                 </Link>

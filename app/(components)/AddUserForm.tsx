@@ -5,6 +5,7 @@ import PopupAlert from './PopupAlert';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import Button from './Button';
+import { UserRoles } from '../(enums)/UserRoles';
 
 interface UserData {
   email: string;
@@ -92,9 +93,9 @@ const AddUserForm = () => {
 
           <label>Role</label>
           <select name="role" value={formData.role} onChange={handleChange}>
-            <option value="user">User</option>
-            <option value="resolver">Resolver(Support)</option>
-            <option value="resolver">Admin</option>
+            <option value={UserRoles.USER}>User</option>
+            <option value={UserRoles.RESOLVER}>Resolver(Support)</option>
+            <option value={UserRoles.ADMIN}>Admin</option>
           </select>
 
           <Button
