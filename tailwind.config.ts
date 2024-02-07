@@ -26,6 +26,13 @@ const config: Config = {
         'dashboard-pending': '#92c6f9',
         'dashboard-assigned': '#fbefa2',
       },
+      screens: {
+        sm: '576px',
+        md: '960px',
+        lg: '1366px',
+        xl: '1920px',
+        xxl: '2560px',
+      },
       backdropBlur: {
         xs: '2px',
       },

@@ -103,11 +103,11 @@ export default function Home() {
         </>
       ) : (
         <>
-          <div className="flex  gap-2 mt-4 justify-between mx-4">
+          <div className="flex gap-2 mt-4 justify-between mx-4 flex-col md:flex-row">
             <div className="border-4 flex-1">
               <h4 className="text-black text-center">Pending Tickets</h4>
               {userTickets && userTickets?.length > 0 ? (
-                <div className="lg:grid grid-cols-1 xl:grid-cols-3">
+                <div className="lg:grid grid-cols-2 xl:grid-cols-3">
                   {userTickets.map((ticket, i) => {
                     return (
                       <TicketCard
@@ -134,7 +134,7 @@ export default function Home() {
               <h4 className="text-black text-center">Complated Tickets</h4>
 
               {userTickets && userTickets?.length > 0 ? (
-                <div className="lg:grid grid-cols-1 xl:grid-cols-3">
+                <div className="lg:grid grid-cols-2 xl:grid-cols-3">
                   {userTickets.map((ticket, i) => {
                     return (
                       <TicketCard

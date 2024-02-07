@@ -86,7 +86,7 @@ const NewUserForm = () => {
   //ADD enter functionality on below
   return (
     <div className="flex justify-center">
-      <div className=" border-2 rounded-lg p-6 bg-form w-1/2">
+      <div className=" border-2 rounded-lg p-6 bg-form m-6 w-full md:w-1/2 md:m-0">
         <form method="post" className="flex flex-col">
           <h2 className="text-center text-black">Register your Account</h2>
           <label>Email</label>

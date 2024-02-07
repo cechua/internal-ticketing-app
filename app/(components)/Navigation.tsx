@@ -20,8 +20,8 @@ interface NavigationProps {
 
 const Navigation = ({ user }: NavigationProps) => {
   return (
-    <nav className="flex justify-between bg-navigation p-4">
-      <h2>Company XYZ Ticket System</h2>
+    <nav className="flex justify-between bg-navigation p-4  flex-col lg:flex-row">
+      <h2 className="mb-4 lg:m-0">Ticket System</h2>
       <div className="flex items-center space-x-4">
         {user && (
           <>

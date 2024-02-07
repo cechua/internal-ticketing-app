@@ -7,7 +7,7 @@ const TicketCard = (ticket: TicketType) => {
   const requestor = ticket.createdBy as UserType;
   const updatedBy = ticket.updatedBy as UserType;
   return (
-    <div className="flex flex-col bg-card hover:bg-card-hover rounded-md shadow-lg p-3 m-2 w-96 h-60">
+    <div className="flex flex-col bg-card hover:bg-card-hover rounded-md shadow-lg p-3 m-2 h-60 text-base xl:text-md">
       <Link href={`/Ticket/${ticket._id}`} style={{ display: 'contents' }}>
         <div>
           <h4 className="text-center">{ticket.category}</h4>

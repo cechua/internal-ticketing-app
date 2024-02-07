@@ -42,7 +42,7 @@ const LoginForm = () => {
   };
   return (
     <div className="flex justify-center">
-      <div className="border-2 rounded-lg p-6 bg-form w-1/2">
+      <div className="border-2 rounded-lg p-6 bg-form m-6 w-full md:w-1/2 md:m-0">
         <form method="post" onSubmit={handleSubmit} className="flex flex-col">
           <h2 className="text-center text-black">Login</h2>
 
