@@ -22,6 +22,7 @@ const NewUserForm = () => {
   };
   const [formData, setFormData] = useState(initialData);
   const [passwordSetup, setPasswordSetup] = useState(false);
+  const [emailError, setEmailError] = useState('');
 
   const checkUser = async () => {
     const res = await fetch(`/api/User?email=${formData.email}`, {
@@ -38,6 +39,7 @@ const NewUserForm = () => {
     const { users } = await checkUser();
     if (users) {
       setPasswordSetup(true);
+      setEmailError('');
       setFormData((prevState) => ({
         ...prevState,
         ['username']: users.username,
@@ -47,6 +49,8 @@ const NewUserForm = () => {
         ['isSetupStep']: false, //false once updated as password is inputted
         ['active']: true,
       }));
+    } else {
+      setEmailError('No user found. Kindly check your email.');
     }
   };
   const handleChange = (e: any) => {
@@ -83,6 +87,13 @@ const NewUserForm = () => {
       }
     }
   };
+
+  const handleEnterKey = async (e: any) => {
+    if (e.keyCode === 13) {
+      e.preventDefault();
+      handleCheckUser();
+    }
+  };
   //ADD enter functionality on below
   return (
     <div className="flex justify-center">
@@ -95,15 +106,23 @@ const NewUserForm = () => {
             value={formData.email}
             onChange={handleChange}
             disabled={passwordSetup}
+            onKeyDown={handleEnterKey}
           ></input>
+          {emailError && (
+            <span className="inline-flex text-sm text-red-600">
+              These credentials do not match our records.
+            </span>
+          )}
           {!passwordSetup && (
-            <button
-              type="button"
-              className="btn max-w-xs"
-              onClick={handleCheckUser}
-            >
-              Find Account
-            </button>
+            <>
+              <button
+                type="button"
+                className="btn max-w-xs"
+                onClick={handleCheckUser}
+              >
+                Find Account
+              </button>
+            </>
           )}
           {passwordSetup && (
             <>

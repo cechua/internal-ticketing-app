@@ -22,7 +22,7 @@
   input,
   select,
   textarea {
-    @apply m-1 rounded p-1;
+    @apply my-1 rounded p-1;
   }
 }
 

@@ -44,7 +44,7 @@ const LoginForm = () => {
     <div className="flex justify-center">
       <div className="border-2 rounded-lg p-6 bg-form m-6 w-full md:w-1/2 md:m-0">
         <form method="post" onSubmit={handleSubmit} className="flex flex-col">
-          <h2 className="text-center text-black">Login</h2>
+          <h2 className="text-center text-black">Login your Account</h2>
 
           <label>Username</label>
           <input
@@ -67,7 +67,11 @@ const LoginForm = () => {
           <button type="submit" className="btn max-w-xs">
             Login
           </button>
-          {hasError && <label>Incorrect Credentials</label>}
+          {hasError && (
+            <span className="inline-flex text-lg text-red-600 mt-2">
+              Incorrect Credentials
+            </span>
+          )}
         </form>
       </div>
     </div>
