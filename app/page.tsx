@@ -7,6 +7,7 @@ import { TicketType } from './(models)/Ticket';
 import { useSession } from 'next-auth/react';
 import { UserRoles } from './(enums)/UserRoles';
 import { Session } from 'next-auth';
+import { Statuses } from './(enums)/Statuses';
 
 export default function Home() {
   const { data: session } = useSession();
@@ -43,6 +44,7 @@ export default function Home() {
   if (loading) {
     return <main>Loading</main>;
   }
+
   return (
     <main>
       {session &&
@@ -108,23 +110,25 @@ export default function Home() {
               <h4 className="text-black text-center">Pending Tickets</h4>
               {userTickets && userTickets?.length > 0 ? (
                 <div className="lg:grid grid-cols-2 xl:grid-cols-3">
-                  {userTickets.map((ticket, i) => {
-                    return (
-                      <TicketCard
-                        key={ticket._id}
-                        _id={ticket._id}
-                        category={ticket.category}
-                        title={ticket.title}
-                        description={ticket.description}
-                        priorityLevel={ticket.priorityLevel}
-                        status={ticket.status}
-                        resolver={ticket.resolver}
-                        createdBy={ticket.createdBy}
-                        updatedAt={ticket.updatedAt}
-                        updatedBy={ticket.updatedBy}
-                      />
-                    );
-                  })}
+                  {userTickets
+                    .filter((ticket) => ticket.status != Statuses.DONE)
+                    .map((ticket, i) => {
+                      return (
+                        <TicketCard
+                          key={ticket._id}
+                          _id={ticket._id}
+                          category={ticket.category}
+                          title={ticket.title}
+                          description={ticket.description}
+                          priorityLevel={ticket.priorityLevel}
+                          status={ticket.status}
+                          resolver={ticket.resolver}
+                          createdBy={ticket.createdBy}
+                          updatedAt={ticket.updatedAt}
+                          updatedBy={ticket.updatedBy}
+                        />
+                      );
+                    })}
                 </div>
               ) : (
                 <div className="text-center">No Pending Tickets</div>
@@ -135,23 +139,25 @@ export default function Home() {
 
               {userTickets && userTickets?.length > 0 ? (
                 <div className="lg:grid grid-cols-2 xl:grid-cols-3">
-                  {userTickets.map((ticket, i) => {
-                    return (
-                      <TicketCard
-                        key={ticket._id}
-                        _id={ticket._id}
-                        category={ticket.category}
-                        title={ticket.title}
-                        description={ticket.description}
-                        priorityLevel={ticket.priorityLevel}
-                        status={ticket.status}
-                        resolver={ticket.resolver}
-                        createdBy={ticket.createdBy}
-                        updatedAt={ticket.updatedAt}
-                        updatedBy={ticket.updatedBy}
-                      />
-                    );
-                  })}
+                  {userTickets
+                    .filter((ticket) => ticket.status == Statuses.DONE)
+                    .map((ticket, i) => {
+                      return (
+                        <TicketCard
+                          key={ticket._id}
+                          _id={ticket._id}
+                          category={ticket.category}
+                          title={ticket.title}
+                          description={ticket.description}
+                          priorityLevel={ticket.priorityLevel}
+                          status={ticket.status}
+                          resolver={ticket.resolver}
+                          createdBy={ticket.createdBy}
+                          updatedAt={ticket.updatedAt}
+                          updatedBy={ticket.updatedBy}
+                        />
+                      );
+                    })}
                 </div>
               ) : (
                 <div className="text-center">No Completed Tickets</div>

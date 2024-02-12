@@ -3,6 +3,7 @@ mongoose.connect(process.env.MONGODB_URI!);
 mongoose.Promise = global.Promise;
 
 export type UserType = {
+  _id?: string;
   email: string;
   username: string;
   firstName: string;

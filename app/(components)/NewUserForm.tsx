@@ -36,16 +36,16 @@ const NewUserForm = () => {
   };
 
   const handleCheckUser = async () => {
-    const { users } = await checkUser();
-    if (users) {
+    const { user } = await checkUser();
+    if (user) {
       setPasswordSetup(true);
       setEmailError('');
       setFormData((prevState) => ({
         ...prevState,
-        ['username']: users.username,
-        ['id']: users._id,
-        ['role']: users.role,
-        ['createdBy']: users.createdBy,
+        ['username']: user.username,
+        ['id']: user._id,
+        ['role']: user.role,
+        ['createdBy']: user.createdBy,
         ['isSetupStep']: false, //false once updated as password is inputted
         ['active']: true,
       }));

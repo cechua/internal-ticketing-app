@@ -9,12 +9,13 @@ const TicketPage = ({ params }: { params: { id: string } }) => {
   const [ticket, setTicket] = useState<TicketType>();
 
   useEffect(() => {
-    fetch(`/api/Ticket/${id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setTicket(data.ticket);
-      });
-  }, [id]);
+    if (IS_UPDATE_MODE)
+      fetch(`/api/Ticket/${id}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setTicket(data.ticket);
+        });
+  }, [id, IS_UPDATE_MODE]);
   return <TicketForm updateMode={IS_UPDATE_MODE} ticketData={ticket} />;
 };
 
