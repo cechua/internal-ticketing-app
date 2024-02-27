@@ -25,6 +25,7 @@ export type TicketType = {
   priorityLevel: number;
   status: string;
   resolver: string;
+  createdAt?: string;
   createdBy?: ID | UserType;
   updatedAt?: string;
   updatedBy?: ID | UserType;

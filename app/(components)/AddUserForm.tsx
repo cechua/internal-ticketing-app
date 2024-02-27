@@ -24,7 +24,9 @@ const AddUserForm = () => {
   const [formData, setFormData] = useState(initialData);
   const [showModal, setShowModal] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
+  const [error, setError] = useState('');
   const handleChange = (e: any) => {
+    setError('');
     const value = e.target.value;
     const name = e.target.name;
     setFormData((prevState) => ({
@@ -35,26 +37,45 @@ const AddUserForm = () => {
 
   const handleSubmit = async () => {
     setIsSaving(true);
-    /*Add email and username duplicate checking */
-    const fullFormData: UserType = {
-      ...formData,
-      firstName: '',
-      lastName: '',
-      password: '',
-      createdBy: session?.user?.id,
-      isSetupStep: true,
-      active: true,
-    };
-    const res = await fetch('/api/User', {
-      method: 'POST',
-      body: JSON.stringify({ data: fullFormData }),
-    });
-    if (!res.ok) {
-      throw new Error('Failed to create Ticket.');
+    const userExists = await handleCheckEmailandUsernameIFExists();
+    if (!userExists) {
+      const fullFormData: UserType = {
+        ...formData,
+        firstName: '',
+        lastName: '',
+        password: '',
+        createdBy: session?.user?.id,
+        isSetupStep: true,
+        active: true,
+      };
+      const res = await fetch('/api/User', {
+        method: 'POST',
+        body: JSON.stringify({ data: fullFormData }),
+      });
+      if (!res.ok) {
+        throw new Error('Failed to create User.');
+      } else {
+        setShowModal(true);
+        setFormData(initialData);
+        setIsSaving(false);
+      }
     } else {
-      setShowModal(true);
-      setFormData(initialData);
       setIsSaving(false);
+      setError('Email or username already exists');
+    }
+  };
+
+  const handleCheckEmailandUsernameIFExists = async () => {
+    const res = await fetch(
+      `/api/User/Validate?email=${formData.email}&username=${formData.username}`,
+      {
+        method: 'GET',
+      }
+    );
+    if (!res.ok) {
+      throw new Error('Failed to check unique email or username.');
+    } else {
+      return res.json();
     }
   };
 
@@ -103,6 +124,9 @@ const AddUserForm = () => {
             isLoading={isSaving}
             onClickHandler={handleSubmit}
           />
+          {error && (
+            <span className="inline-flex text-sm text-red-600">{error}</span>
+          )}
         </form>
       </div>
       <PopupAlert

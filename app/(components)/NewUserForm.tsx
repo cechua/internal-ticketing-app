@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { hashPass } from '../(utils)/hashPass';
 import { UserType } from '../(models)/User';
+import { useRouter } from 'next/navigation';
 interface UserData extends UserType {
   id: string;
   confirmPassword: string;
@@ -23,7 +24,7 @@ const NewUserForm = () => {
   const [formData, setFormData] = useState(initialData);
   const [passwordSetup, setPasswordSetup] = useState(false);
   const [emailError, setEmailError] = useState('');
-
+  const router = useRouter();
   const checkUser = async () => {
     const res = await fetch(`/api/User?email=${formData.email}`, {
       method: 'GET',
@@ -81,9 +82,10 @@ const NewUserForm = () => {
         body: JSON.stringify({ data: updatedData }),
       });
       if (!res.ok) {
-        throw new Error('Failed to update your Ticket.');
+        throw new Error('Failed to update User.');
       } else {
         setFormData(initialData);
+        redirectToLoginPage();
       }
     }
   };
@@ -94,7 +96,11 @@ const NewUserForm = () => {
       handleCheckUser();
     }
   };
-  //ADD enter functionality on below
+
+  const redirectToLoginPage = () => {
+    router.push('/User/Login');
+  };
+
   return (
     <div className="flex justify-center">
       <div className=" border-2 rounded-lg p-6 bg-form m-6 w-full md:w-1/2 md:m-0">
