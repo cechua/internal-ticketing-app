@@ -49,7 +49,6 @@ export default function Home() {
   }, [session]);
 
   const dashboardValuesHandler = (tickets: TicketType[]) => {
-    console.log(moment(new Date()).add(-1, 'days').format('MM/DD/yyyy'));
     const newTicketsCount = tickets.filter(
       (ticket) =>
         ticket.status == Statuses.NOT_STARTED &&

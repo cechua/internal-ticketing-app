@@ -59,7 +59,7 @@ const Navigation = ({ user }: NavigationProps) => {
             <>
               <p className="text-default-text border-r-2 px-3">
                 <Link href="/User/NewUser">
-                  <span>Register your Account</span>
+                  <span>Activate your account</span>
                 </Link>
               </p>
               <p className="text-default-text">
